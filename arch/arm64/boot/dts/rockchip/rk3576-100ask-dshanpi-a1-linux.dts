@@ -1,0 +1,54 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * Copyright (c) 2024 Rockchip Electronics Co., Ltd.
+ *
+ */
+
+/dts-v1/;
+
+#include "rk3576.dtsi"
+#include "rk3576-100ask-dshanpi-a1-common.dtsi"
+
+#include "rk3576-100ask-480-800-mipi.dtsi"
+#if 0
+#include "rk3576-100ask-imx415-csi3.dtsi"
+#include "rk3576-100ask-imx415-csi1.dtsi"
+#endif
+#include "rk3576-100ask-rk628d.dtsi"
+
+/ {
+	model = "Rockchip RK3576 DshanPi A1 Board";
+	compatible = "rockchip,rk3576-dshanpi-a1", "rockchip,rk3576";
+	
+	fan: pwm-fan {
+		status = "okay";
+		compatible = "pwm-fan";
+		#cooling-cells = <2>;
+		pwms = <&pwm1_6ch_0 0 50000 1>;
+		
+		cooling-levels = <0 100 125 150 200 255>;
+		
+		rockchip,temp-trips = <
+			40000    1
+			50000    2
+			60000    3
+			65000    4
+			70000    5
+		>;
+	};	
+
+};
+
+/******* RTL8852CE *******/
+&pcie0 {
+        reset-gpios = <&gpio1 RK_PB7 GPIO_ACTIVE_HIGH>;
+	
+        status = "okay";
+};
+
+/******* pwm-fan *******/
+&pwm1_6ch_0 {
+	status = "okay";
+	pinctrl-0 = <&pwm1m0_ch0>;
+};
+

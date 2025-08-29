@@ -1,0 +1,249 @@
+/*
+*****mipi-dsi *******
+*/
+&backlight {
+	pwms = <&pwm0_2ch_0 0 25000 0>;
+	
+};
+
+&pwm0_2ch_0 {
+        status = "okay";
+        pinctrl-0 = <&pwm0m0_ch0>;
+};
+
+&dsi {
+	status = "okay";
+	rockchip,lane-rate = <480>;
+
+	dsi_panel: panel@0 {
+		status = "okay";
+		compatible = "simple-panel-dsi";
+		power-supply = <&vcc3v3_lcd_n>;
+		reg = <0>;
+		backlight = <&backlight>;
+
+		prepare-delay-ms = <10>;
+		reset-delay-ms = <40>;
+		init-delay-ms = <40>;
+		enable-delay-ms = <40>;
+		disable-delay-ms = <50>;
+		unprepare-delay-ms = <40>;
+
+		reset-gpios = <&gpio0 RK_PD1 GPIO_ACTIVE_LOW>;
+		pinctrl-names = "default";
+
+		width-mm = <57>;
+		height-mm = <97>;
+
+		dsi,flags = <(MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
+                              MIPI_DSI_MODE_LPM | MIPI_DSI_MODE_NO_EOT_PACKET)>;
+
+		dsi,format = <MIPI_DSI_FMT_RGB888>;
+		dsi,lanes = <2>;
+
+		panel-init-sequence = [
+				39 00 06 FF FF 98 06 04 01
+				15 00 02 08 10
+				15 00 02 21 01
+				15 00 02 30 02
+				15 00 02 31 02
+				15 00 02 60 07
+				15 00 02 61 06
+				15 00 02 62 06
+				15 00 02 63 04
+				15 00 02 40 14
+				15 00 02 41 22
+				15 00 02 42 02
+				15 00 02 43 09
+				15 00 02 44 86
+				15 00 02 50 78
+				15 00 02 51 78
+				15 00 02 52 00
+				15 00 02 53 3A
+				15 00 02 A0 00
+				15 00 02 A1 19
+				15 00 02 A2 20
+				15 00 02 A3 0E
+				15 00 02 A4 06
+				15 00 02 A5 09
+				15 00 02 A6 06
+				15 00 02 A7 05
+				15 00 02 A8 07
+				15 00 02 A9 0B
+				15 00 02 AA 12
+				15 00 02 AB 07
+				15 00 02 AC 0E
+				15 00 02 AD 15
+				15 00 02 AE 0C
+				15 00 02 AF 00
+				15 00 02 C0 00
+				15 00 02 C1 19
+				15 00 02 C2 20
+				15 00 02 C3 0E
+				15 00 02 C4 06
+				15 00 02 C5 09
+				15 00 02 C6 06
+				15 00 02 C7 04
+				15 00 02 C8 07
+				15 00 02 C9 0B
+				15 00 02 CA 12
+				15 00 02 CB 07
+				15 00 02 CC 0E
+				15 00 02 CD 15
+				15 00 02 CE 0C
+				15 00 02 CF 00
+				39 00 06 FF FF 98 06 04 07
+				15 0a 02 17 32
+				15 0a 02 06 13
+				15 0a 02 02 77
+				15 0a 02 18 1D
+				15 0a 02 E1 79
+				39 00 06 FF FF 98 06 04 06
+				15 00 02 00 20
+				15 00 02 01 04
+				15 00 02 02 00
+				15 00 02 03 00
+				15 00 02 04 01
+				15 00 02 05 01
+				15 00 02 06 88
+				15 00 02 07 04
+				15 00 02 08 01
+				15 00 02 09 90
+				15 00 02 0A 03
+				15 00 02 0B 01
+				15 00 02 0C 01
+				15 00 02 0D 01
+				15 00 02 0E 00
+				15 00 02 0F 00
+				15 00 02 10 55
+				15 00 02 11 53
+				15 00 02 12 01
+				15 00 02 13 0D
+				15 00 02 14 0D
+				15 00 02 15 43
+				15 00 02 16 0B
+				15 00 02 17 00
+				15 00 02 18 00
+				15 00 02 19 00
+				15 00 02 1A 00
+				15 00 02 1B 00
+				15 00 02 1C 00
+				15 00 02 1D 00
+				15 00 02 20 01
+				15 00 02 21 23
+				15 00 02 22 45
+				15 00 02 23 67
+				15 00 02 24 01
+				15 00 02 25 23
+				15 00 02 26 45
+				15 00 02 27 67
+				15 00 02 30 02
+				15 00 02 31 22
+				15 00 02 32 11
+				15 00 02 33 AA
+				15 00 02 34 BB
+				15 00 02 35 66
+				15 00 02 36 00
+				15 00 02 37 22
+				15 00 02 38 22
+				15 00 02 39 22
+				15 00 02 3A 22
+				15 00 02 3B 22
+				15 00 02 3C 22
+				15 00 02 3D 22
+				15 00 02 3E 22
+				15 00 02 3F 22
+				15 00 02 40 22
+				15 00 02 53 10
+				39 00 06 FF FF 98 06 04 07
+				15 00 02 17 22
+				15 00 02 18 1D
+				15 00 02 06 13
+				15 00 02 02 77
+				15 00 02 E1 79
+				39 00 06 FF FF 98 06 04 00
+				15 00 02 3A 77
+				15 00 02 36 00
+				15 ff 02 11 00
+				15 ff 02 29 00
+				];
+
+		panel-exit-sequence = [
+			05 00 01 28
+				05 78 01 10
+		];
+
+		display-timings {
+			native-mode = <&timing0>;
+
+			timing0: timing0 {
+				clock-frequency = <25600000>;
+				hactive = <480>;
+				vactive = <800>;
+				hfront-porch = <10>;
+				hsync-len = <5>;
+				hback-porch = <20>;
+				vfront-porch = <5>;
+				vsync-len = <5>;
+				vback-porch = <20>;
+				hsync-active = <0>;
+				vsync-active = <0>;
+				de-active = <0>;
+				pixelclk-active = <0>;
+			};
+		};
+
+		ports {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			port@0 {
+				reg = <0>;
+				panel_in_dsi: endpoint {
+					remote-endpoint = <&dsi_out_panel>;
+				};
+			};
+		};
+	};
+
+	ports {
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		port@1 {
+			reg = <1>;
+			dsi_out_panel: endpoint {
+				remote-endpoint = <&panel_in_dsi>;
+			};
+		};
+	};
+};
+
+
+
+/*
+**** touch ****
+*/
+
+&i2c4 {
+	status = "okay";
+	pinctrl-names = "default";
+	pinctrl-0 = <&i2c4m0_xfer>;
+
+	ctp@38 {
+		status = "okay";
+		compatible = "focaltech,fts";
+		reg = <0x38>;
+		power-supply = <&vcc3v3_lcd_n>;
+			 
+		interrupt-parent = <&gpio4>;
+		interrupts = <RK_PC6 IRQ_TYPE_LEVEL_LOW>;
+		focaltech,reset-gpio = <&gpio4 RK_PC7 GPIO_ACTIVE_HIGH>;
+		focaltech,irq-gpio = <&gpio4 RK_PC6 IRQ_TYPE_LEVEL_LOW>;
+		focaltech,max-touch-number = <5>;
+		focaltech,display-coords = <0 0 480 800>;
+	};
+
+};
+
+
